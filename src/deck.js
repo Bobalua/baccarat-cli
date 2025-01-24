@@ -1,6 +1,5 @@
 
 // TODO add the shuffle functionality
-// Figure out how to equate strings to values (should be easy)
 
 // this is a simple array that represents a single deck.  
 const deck = [
@@ -18,12 +17,25 @@ const deck = [
     'Q', 'Q', 'Q', 'Q', 
     'K', 'K', 'K', 'K'
 ];
-// this was an attempt to equate numerical value.  Did not work as written
-const cardValue = {
-    'A' = 1,
-    'J' = 10,
-    'Q' = 10,
-    'K' = 10
-};
 
-console.log(deck[46]);
+// This equates a numerical value with the strings that represent
+//      face cards and aces.
+const cardVal = {
+    'K': 10,
+    'Q': 10,
+    'J': 10,
+    'A': 1
+}
+
+// using the splat spread operator to merge multiple arrays into one array called 'shoe'
+const shoe = [...deck, ...deck, ...deck, ...deck];
+
+let card = deck[2];
+
+// if the card has a key value pair in cardVal, it will use that value.  If not, it will use the default
+        // numerical value for the card
+let cardScore = cardVal[card] || card;
+
+console.log(card + " - " + cardScore);
+
+
