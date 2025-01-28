@@ -1,39 +1,77 @@
 
 
-// this is a simple array that represents a single deck.  
-// TODO  change array to all integers.
+
+
+
+
+function makeCard(display, score) {
+    return {display, score};
+}
+
 const deck = [
-    'A', 'A', 'A', 'A', 
-    2, 2, 2, 2, 
-    3, 3, 3, 3, 
-    4, 4, 4, 4, 
-    5, 5, 5, 5, 
-    6, 6, 6, 6, 
-    7, 7, 7, 7, 
-    8, 8, 8, 8, 
-    9, 9, 9, 9, 
-    10, 10, 10, 10,
-    'J', 'J', 'J', 'J', 
-    'Q', 'Q', 'Q', 'Q', 
-    'K', 'K', 'K', 'K'
+    makeCard('A♥', 1),
+    makeCard('A♦', 1),
+    makeCard('A♠', 1),
+    makeCard('A♣', 1),
+    makeCard('2♥', 2),
+    makeCard('2♦', 2),
+    makeCard('2♠', 2),
+    makeCard('2♣', 2),
+    makeCard('3♥', 3),
+    makeCard('3♦', 3),
+    makeCard('3♠', 3),
+    makeCard('3♣', 3),
+    makeCard('4♥', 4),
+    makeCard('4♦', 4),
+    makeCard('4♠', 4),
+    makeCard('4♣', 4),
+    makeCard('5♥', 5),
+    makeCard('5♦', 5),
+    makeCard('5♠', 5),
+    makeCard('5♣', 5),
+    makeCard('6♥', 6),
+    makeCard('6♦', 6),
+    makeCard('6♠', 6),
+    makeCard('6♣', 6),
+    makeCard('7♥', 7),
+    makeCard('7♦', 7),
+    makeCard('7♠', 7),
+    makeCard('7♣', 7),
+    makeCard('8♥', 8),
+    makeCard('8♦', 8),
+    makeCard('8♠', 8),
+    makeCard('8♣', 8),
+    makeCard('9♥', 9),
+    makeCard('9♦', 9),
+    makeCard('9♠', 9),
+    makeCard('9♣', 9),
+    makeCard('10♥', 10),
+    makeCard('10♦', 10),
+    makeCard('10♠', 10),
+    makeCard('10♣', 10),
+    makeCard('J♥', 10),
+    makeCard('J♦', 10),
+    makeCard('J♠', 10),
+    makeCard('J♣', 10),
+    makeCard('Q♥', 10),
+    makeCard('Q♦', 10),
+    makeCard('Q♠', 10),
+    makeCard('Q♣', 10),
+    makeCard('K♥', 10),
+    makeCard('K♦', 10),
+    makeCard('K♠', 10),
+    makeCard('K♣', 10)
 ];
 
-// This equates a numerical value with the strings that represent
-//      face cards and aces.
-// TODO change const name.  
-// TODO change key value pairs to reflect new deck array
-const faceCardValue = {
-    'K': 10,
-    'Q': 10,
-    'J': 10,
-    'A': 1
-}
+// console.log(deck[50].score); //debug
+// console.log(deck[50].display); //debug
 
 // using the splat spread operator to merge multiple arrays into one array called 'shoe'
 const shoe = [...deck, ...deck, ...deck, ...deck];
 
-// if the card has a key value pair in cardVal, it will use that value.  If not, it will use the 
-        // numerical value of the card
+// console.log(shoe);
+
+
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -63,25 +101,29 @@ function deal() {
 
 deal();
 
-// console.log(playerHand);    // debug
-// console.log(bankerHand);    // debug
+console.log(playerHand);    // debug
+console.log(bankerHand);    // debug
 
-// player gross score is calculated by adding the value of the two cards.
-// It will first check to see a card has a defined value in the cardVal object.
-// if that value exists, that is the value used.
-// if not, it will use the integer value of the card.
-let playerScore = (faceCardValue[playerHand[0]] || playerHand[0]) + (faceCardValue[playerHand[1]] || playerHand[1]);
-
-// console.log(playerHand); //debug
-
-// this will drop the first digit of a two digit score.
+let playerScore = (playerHand[0].score) + (playerHand[1].score);
 if (playerScore > 9) {
     playerScore = JSON.parse(playerScore.toString().slice(1));
 };
+// // console.log(playerHand); //debug
 
-console.log(playerHand); //debug
+let bankerScore = (bankerHand[0].score) + (bankerHand[1].score);
+if (bankerScore > 9) {
+    bankerScore = JSON.parse(bankerScore.toString().slice(1));
+};
 
+console.log(playerScore); // debug
+console.log(bankerScore); // debug
+// // this will drop the first digit of a two digit score.
+
+
+console.log(playerHand[0].display + " " + playerHand[1].display); // debug
 console.log(playerScore); //debug
+console.log(bankerHand[0].display + " " + bankerHand[1].display); // debug
+console.log(bankerScore); //debug
 
 // TODO add player scoring logic
 // TODO add banker scoring logic (dependent on player scoring)
