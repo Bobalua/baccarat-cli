@@ -22,7 +22,7 @@ const deck = [
 //      face cards and aces.
 // TODO change const name.  
 // TODO change key value pairs to reflect new deck array
-const cardVal = {
+const faceCardValue = {
     'K': 10,
     'Q': 10,
     'J': 10,
@@ -70,9 +70,9 @@ deal();
 // It will first check to see a card has a defined value in the cardVal object.
 // if that value exists, that is the value used.
 // if not, it will use the integer value of the card.
-let playerScore = (cardVal[playerHand[0]] || playerHand[0]) + (cardVal[playerHand[1]] || playerHand[1]);
+let playerScore = (faceCardValue[playerHand[0]] || playerHand[0]) + (faceCardValue[playerHand[1]] || playerHand[1]);
 
-console.log(playerHand); //debug
+// console.log(playerHand); //debug
 
 // this will drop the first digit of a two digit score.
 if (playerScore > 9) {
@@ -88,3 +88,4 @@ console.log(playerScore); //debug
 // TODO figure out UI for user interactions (purse, betting amt, what to bet on, etc.)
 // TODO create game loop
 // TODO (possible) arrange deck.js into either a class or a series of export functions
+// TODO declare winner and resolve bets
