@@ -82,19 +82,23 @@ function bankerDraw(bankerHand: Card[]) {
         bankerFinalScore = bankerHandScore;
         return bankerFinalScore;
     } else if (bankerHandScore < 3) {
+        // if banker hand is 0, 1 or 2 they draw a third card.
         bankerHand.push(
             shoe.deal()
         );
         bankerFinalScore = (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
-        console.log('Banker Hand: ');
-        bankerHand.forEach(logCard);
-        console.log('  ', bankerFinalScore);
+        // console.log('Banker Hand: ');
+        // bankerHand.forEach(logCard);
+        // console.log('  ', bankerFinalScore);
         return bankerFinalScore;
+    // if banker hand is 3.....
     } else if (bankerHandScore == 3){
+        // and player 3rd card is an 8, banker stands
         if (playerHand[2].score == 8) {
             bankerFinalScore = bankerHandScore;
             return bankerFinalScore;
         } else {
+            // and player 3rd card is anything other than an 8, banker draws a third card
             bankerHand.push(
                 shoe.deal()
             );
@@ -102,7 +106,9 @@ function bankerDraw(bankerHand: Card[]) {
             bankerHand.forEach(logCard);
             return bankerFinalScore;
         };
+    // if banker hand is 4......
     } else if (bankerHandScore == 4) {
+        // and player third card is NOT an 8 or 9, banker draws a third card
         if (playerHand[2].score != 8 && playerHand[2].score != 9) {
             bankerHand.push(
                 shoe.deal()
@@ -114,6 +120,7 @@ function bankerDraw(bankerHand: Card[]) {
             bankerFinalScore = bankerHandScore;
             return bankerFinalScore;
         };
+    // if banker hand is 5, and player third card is a 4-7, banker draws a third card
     } else if (bankerHandScore == 5) {
         if (playerHand[2].score == 4 ||
             playerHand[2].score == 5 ||
@@ -130,6 +137,7 @@ function bankerDraw(bankerHand: Card[]) {
             bankerFinalScore = bankerHandScore;
             return bankerFinalScore;
         };
+    // if banker hand is 6, and player third card is a 6 or 7, banker draws a third card
     } else if (bankerHandScore == 6) {
         if (playerHand[2].score == 6 || playerHand[2].score == 7) {
             bankerHand.push(
@@ -142,12 +150,15 @@ function bankerDraw(bankerHand: Card[]) {
             bankerFinalScore = bankerHandScore;
             return bankerFinalScore;
         };
+    // banker stands on 7
     } else if (bankerHandScore == 7) {
         bankerFinalScore = bankerHandScore;
             return bankerFinalScore;
     };
 };
 
+//TODO this needs to be slightly altered to accomodate player and banker score variables that 
+//      still need to be implemented.
 function declareWinner(playerFinal: number , bankerFinal: number) {
     if (playerFinal == bankerFinal) {
         console.log('Banker and Player Tie!');
@@ -161,7 +172,9 @@ function declareWinner(playerFinal: number , bankerFinal: number) {
     }
 };
 
-// Im sure this is a bad idea, but I don't understand why it is showing an error.  
+// I don't intend on actually using this function this way, 
+// but I don't understand why it is showing an error on one and not the other.
+// I kept this here just for clarification on that question.  
 declareWinner(playerDraw(playerHand), bankerDraw(bankerHand));
 
 // I think I need to dump the result of the draw function into a global scope variable instead of calling
