@@ -2,7 +2,6 @@
   "name": "baccarat-cli",
   "version": "1.0.0",
   "main": "index.js",
-
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "lint": "eslint 'src/**/*.{ts,tsx}'",
@@ -13,6 +12,7 @@
   "description": "",
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@types/node": "^22.13.1",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
     "eslint": "^9.19.0",

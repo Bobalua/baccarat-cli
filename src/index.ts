@@ -11,100 +11,89 @@ shoe.shuffle();
 const playerHand: Card[] = [];
 const bankerHand: Card[] = [];
 
-playerHand.push(
-    shoe.deal()
-);
-bankerHand.push(
-    shoe.deal()
-)
-playerHand.push(
-    shoe.deal()
-);
-bankerHand.push(
-    shoe.deal()
-)
+function dealHand() {
+    playerHand.push(
+        shoe.deal()
+    );
+    bankerHand.push(
+        shoe.deal()
+    )
+    playerHand.push(
+        shoe.deal()
+    );
+    bankerHand.push(
+        shoe.deal()
+    )
+};
 
 function logCard(card: Card) {
     console.log('  ', displayCard(card));
 }
 
-console.log('Player Hand: ');
+// console.log('Player Hand: ');
 const playerHandScore = (playerHand[0].score + playerHand[1].score) % 10;
-playerHand.forEach(logCard);
+// playerHand.forEach(logCard);
 // console.log('  ', playerHandScore); // debug
 
-console.log('Banker Hand: ');
+// console.log('Banker Hand: ');
 const bankerHandScore = (bankerHand[0].score + bankerHand[1].score) % 10;
-bankerHand.forEach(logCard);
+// bankerHand.forEach(logCard);
 // console.log('  ', bankerHandScore); //debug
 
 function playerDraw(playerHand: Card[]) {
     // final score after possible third cards will be put into 'playerFinalScore]' variable
-    let playerFinalScore;
     // if player has an 8 or 9, it is a natural and they do not receive a third card. final score is returned.
     if (playerHandScore == 8 || playerHandScore == 9) {
         console.log(`Player has a natural ${playerHandScore}.`);
-        playerFinalScore = playerHandScore;
-        return playerFinalScore;
+        return playerHandScore;
     // if player has 6 or 7, they do not receive a third card.  final score is returned.
     } else if (bankerHandScore == 8 || bankerHandScore == 9) {
-        playerFinalScore = playerHandScore;
-        return playerFinalScore;
+        return playerHandScore;
     } else if (playerHandScore == 6 || playerHandScore == 7) {
         console.log(`Player stands with ${playerHandScore}.`);
-        playerFinalScore = playerHandScore;
-        return playerFinalScore;
+        return playerHandScore;
     // if player score is 0-5, they are given a third card.
     } else if (playerHandScore < 6) {
         playerHand.push(
             shoe.deal()
         );
-    // new score is calculated and put in playerFinalScore and that variable is returned.
-        playerFinalScore = (playerHand[0].score + playerHand[1].score + playerHand[2].score) % 10;
-        console.log('Player Hand: ');
-        playerHand.forEach(logCard);
-        console.log('  ', playerFinalScore);
-        return playerFinalScore;
-    };
+        // playerHand.forEach(logCard);
+        return (playerHand[0].score + playerHand[1].score + playerHand[2].score) % 10;
+    }; 
 };
 
 function bankerDraw(bankerHand: Card[]) {
-    // score after possible third card will be put into 'bankerFinalScore' variable
-    let bankerFinalScore;
+    
     // if the player had a natural 8 or 9, no third cards are drawn.  bankerHandScore = bankerFinalScore. 
     if (playerHandScore == 8 || playerHandScore == 9) {
-        bankerFinalScore = bankerHandScore;
     //  bankerFinalScore is returned.
-        return bankerFinalScore;
+        return bankerHandScore;
     // if the banker has a natural 8 or 9, no third cards are dealt
     } else if (bankerHandScore == 8 || bankerHandScore == 9) {
         console.log(`Banker has a natural ${bankerHandScore}.`);
-        bankerFinalScore = bankerHandScore;
-        return bankerFinalScore;
+        return bankerHandScore;
     } else if (bankerHandScore < 3) {
         // if banker hand is 0, 1 or 2 they draw a third card.
         bankerHand.push(
             shoe.deal()
         );
-        bankerFinalScore = (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
+        (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
         // console.log('Banker Hand: ');
         // bankerHand.forEach(logCard);
         // console.log('  ', bankerFinalScore);
-        return bankerFinalScore;
+        return (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
     // if banker hand is 3.....
     } else if (bankerHandScore == 3){
         // and player 3rd card is an 8, banker stands
         if (playerHand[2].score == 8) {
-            bankerFinalScore = bankerHandScore;
-            return bankerFinalScore;
+            return bankerHandScore;
         } else {
             // and player 3rd card is anything other than an 8, banker draws a third card
             bankerHand.push(
                 shoe.deal()
             );
-            bankerFinalScore = (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
-            bankerHand.forEach(logCard);
-            return bankerFinalScore;
+            // bankerHand.forEach(logCard);
+            return (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
         };
     // if banker hand is 4......
     } else if (bankerHandScore == 4) {
@@ -113,12 +102,10 @@ function bankerDraw(bankerHand: Card[]) {
             bankerHand.push(
                 shoe.deal()
             );
-            bankerFinalScore = (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
-            bankerHand.forEach(logCard);
-            return bankerFinalScore;
+            // bankerHand.forEach(logCard);
+            return (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
         } else {
-            bankerFinalScore = bankerHandScore;
-            return bankerFinalScore;
+            return bankerHandScore;
         };
     // if banker hand is 5, and player third card is a 4-7, banker draws a third card
     } else if (bankerHandScore == 5) {
@@ -129,31 +116,27 @@ function bankerDraw(bankerHand: Card[]) {
         ) {
             bankerHand.push(
                 shoe.deal()
-            );
-            bankerFinalScore = (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
-            bankerHand.forEach(logCard);
-            return bankerFinalScore;            
+            );           
+            // bankerHand.forEach(logCard);
+            return (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;     
         } else {
-            bankerFinalScore = bankerHandScore;
-            return bankerFinalScore;
+           
+            return bankerHandScore;
         };
     // if banker hand is 6, and player third card is a 6 or 7, banker draws a third card
     } else if (bankerHandScore == 6) {
         if (playerHand[2].score == 6 || playerHand[2].score == 7) {
             bankerHand.push(
                 shoe.deal()
-            );
-            bankerFinalScore = (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;
-            bankerHand.forEach(logCard);
-            return bankerFinalScore;       
-        } else {
-            bankerFinalScore = bankerHandScore;
-            return bankerFinalScore;
+            );           
+            // bankerHand.forEach(logCard);
+            return (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10;       
+        } else {           
+            return bankerHandScore;
         };
     // banker stands on 7
-    } else if (bankerHandScore == 7) {
-        bankerFinalScore = bankerHandScore;
-            return bankerFinalScore;
+    } else if (bankerHandScore == 7) {   
+            return bankerHandScore;
     };
 };
 
@@ -172,13 +155,15 @@ function declareWinner(playerFinal: number , bankerFinal: number) {
     }
 };
 
-// I don't intend on actually using this function this way, 
-// but I don't understand why it is showing an error on one and not the other.
-// I kept this here just for clarification on that question.  
-declareWinner(playerDraw(playerHand), bankerDraw(bankerHand));
+let playerFinalScore = playerDraw(playerHand);
+let bankerFinalScore = bankerDraw(bankerHand);
 
-// I think I need to dump the result of the draw function into a global scope variable instead of calling
-// the function as an argument.  I think this will make everything cleaner and more simple.  
+console.log('Player Hand: ');
+playerHand.forEach(logCard);
+console.log('Banker Hand: ');
+bankerHand.forEach(logCard);
+
+declareWinner(playerFinalScore, bankerFinalScore);
 
 // TODO use switch / case to determine payouts.
 
@@ -188,8 +173,6 @@ declareWinner(playerDraw(playerHand), bankerDraw(bankerHand));
 
 // playerDraw(playerHand);
 // bankerDraw(bankerHand);
-// playerHand.forEach(logCard);
-// console.log(' ');
-// bankerHand.forEach(logCard);
+
 
 
