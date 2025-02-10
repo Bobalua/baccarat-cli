@@ -64,7 +64,7 @@ function betPrompt() {
             return;
         }
         // checking to see if user input is valid
-        if (!["player", "banker", "tie"].includes(pbt.toLowerCase())) {
+        if (!["player", "banker", "tie"].includes(pbt.trim().toLowerCase())) {
             console.log('That was not one of your options.');
             return betPrompt();
         }
@@ -73,7 +73,11 @@ function betPrompt() {
             const amt = parseFloat(amtInput);
             if (isNaN(amt) || amt <= 0 || amt > purse) {
                 console.log('No funny business.  Lets try again');
-                return betPrompt();
+                    setTimeout(() => {
+                        console.clear();
+                        displayRoad();
+                        betPrompt();
+                    }, 1500);
             }
             switch(pbt.toLowerCase()) {
                 case 'player':
