@@ -11,8 +11,11 @@ let tieBet = 0;
 let purse = 100;
 const gridSize = 8; 
 const totalCells = gridSize * gridSize;
-let road = Array(totalCells).fill(' - '); 
+const road = Array(totalCells).fill(' - '); 
 let currentIndex = 0;
+
+// TODO make the road stack in columns for repeat outcomes and move right with a new outcome.
+// 6 rows by 47 columns
 
 function displayRoad() {
     console.clear();
@@ -32,25 +35,28 @@ function updateRoad(outcome: string) {
     }
 }
 
-// const countdown = (seconds) => {
-//     let remaining = seconds;
+const countdown = (seconds: number) => {
+    let remaining = seconds;
   
-//     const interval = setInterval(() => {
-//       process.stdout.write(`\rTime until next hand: ${remaining} second`);
-//       remaining--;
+    const interval = setInterval(() => {
+      process.stdout.write(`\rTime until next hand: ${remaining} second`);
+      remaining--;
 
-//         if (remaining < 0) {
-//             clearInterval(interval);
-//             console.log("\nNO MORE BETS!!");
-//             rl.close();
-//         };
-//     }, 1000);
-// };
-
+        if (remaining < 0) {
+            clearInterval(interval);
+            console.log("\nNO MORE BETS!!");
+            rl.close();
+        };
+    }, 1000);
+};
   
-
 updateRoad(' P ');
-// countdown(15);
+updateRoad(' B ');
+updateRoad(' P ');
+updateRoad(' B ');
+updateRoad(' B ');
+updateRoad(' T ');
+countdown(15);
 
 
 // function that opens a readline interface to get user input

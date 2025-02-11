@@ -26,6 +26,7 @@ function dealHand() {
     )
 };
 
+
 function logCard(card: Card) {
     console.log('  ', displayCard(card));
 }
@@ -40,7 +41,12 @@ const bankerHandScore = (bankerHand[0].score + bankerHand[1].score) % 10;
 // bankerHand.forEach(logCard);
 // console.log('  ', bankerHandScore); //debug
 
-function playerDraw(playerHand: Card[]) {
+// TODO ensure player has two cards and a score when this function is called.
+// player draw function deals a third card based on current score.  If score is 8 or 9, no cards are dealt.
+// if the score is 6 or 7, player does not get a third card. If the score is 0-5, the player will get a third card.
+// Return final player score.  If the player has no cards, the dealHand function will be called.
+
+function playerThirdCardDraw(playerHand: Card[]) {
     // final score after possible third cards will be put into 'playerFinalScore]' variable
     // if player has an 8 or 9, it is a natural and they do not receive a third card. final score is returned.
     if (playerHandScore == 8 || playerHandScore == 9) {
@@ -59,7 +65,9 @@ function playerDraw(playerHand: Card[]) {
         );
         // playerHand.forEach(logCard);
         return (playerHand[0].score + playerHand[1].score + playerHand[2].score) % 10;
-    }; 
+    } else {
+        dealHand();
+    } 
 };
 
 function bankerDraw(bankerHand: Card[]) {
@@ -155,7 +163,7 @@ function declareWinner(playerFinal: number , bankerFinal: number) {
     }
 };
 
-let playerFinalScore = playerDraw(playerHand);
+let playerFinalScore = playerThirdCardDraw(playerHand);
 let bankerFinalScore = bankerDraw(bankerHand);
 
 console.log('Player Hand: ');
