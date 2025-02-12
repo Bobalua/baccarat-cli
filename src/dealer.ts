@@ -12,6 +12,6 @@ export default class Dealer {
   }
 
   deal() {
-    // ??
+    this.shoe.deal();
   }
 }

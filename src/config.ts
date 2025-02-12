@@ -59,5 +59,106 @@ export const AvailableBets: AvailableBet[] = [
         }
         return false;
     },
+  },
+  {
+    // if player wins, validator returns true
+    name: 'Player Win',
+    description: 'Players hand beats bankers hand',
+    payout: [ 1, 1 ],
+    validator: (bankerHand: Card[], playerHand: Card[]): boolean => {
+        if ((playerHand[0].score + playerHand[1].score + playerHand[2].score || 0) % 10 >
+           (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score || 0) % 10) {
+            return true;
+        }
+        return false;
+    },
+   },
+   {
+    // if banker wins, validator returns true.  payout takes into account a 5% house cut
+    name: 'Banker Win',
+    description: 'Bankers hand beats players hand',
+    payout: [.95, 1],
+    validator: (bankerHand: Card[], playerHand: Card[]): boolean => {
+        if ((playerHand[0].score + playerHand[1].score + playerHand[2].score || 0) % 10 <
+           (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score || 0) % 10) {
+            return true;
+        }
+        return false;
+   },
+  },
+  {
+    // if player and banker have the same score, payout is 8:1
+    name: 'Tie',
+    description: 'Player and banker have the same final score',
+    payout: [8, 1],
+    validator: (bankerHand: Card[], playerHand: Card[]): boolean => {
+        if ((playerHand[0].score + playerHand[1].score + playerHand[2].score || 0) % 10 ==
+           (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score || 0) % 10) {
+            return true;
+        }
+        return false;
+    }
+  },
+  {
+    
+    name: 'Dragon 7',
+    description: 'Banker wins with a three card hand worth 7 points',
+    payout: [40, 1],
+    validator: (bankerHand: Card[], playerHand: Card[]): boolean => {
+        // AvailableBets.find searches the array of objects looking for one with the name "banker Win".  
+        // That object is put into bankerBet
+        const bankerBet = AvailableBets.find(bet => bet.name == 'Banker Win')
+        // banker hand must have exactly three cards
+        if (bankerHand.length === 3 && 
+            // adding all three card scores and dividing by 10, with the remainder being the score
+           (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10 === 7 &&
+           // 
+            bankerBet?.validator(bankerHand, playerHand) == true) {
+                return true;
+            }
+            return false;
+
+    }
+        
+  },
+  {
+    name: 'Player Pair',
+    description: 'Players first two cards are the same rank',
+    payout: [5, 1],
+    validator: (bankerHand, playerHand) => {
+        if (playerHand[0].rank == playerHand[1].rank) {
+            return true;
+        }
+        return false;
+    }
+  },
+  {
+    name: 'Banker Pair',
+    description: 'Bankers first two cards are the same rank',
+    payout: [5, 1],
+    validator: (bankerHand, playerHand) => {
+        if (bankerHand[0].rank == playerHand[1].rank) {
+            return true;
+        }
+        return false;
+    }
+  },
+  {
+    name: 'Panda 8',
+    description: 'Player wins with a three card hand that scores 8',
+    payout: [25, 1],
+    validator: (bankerHand, playerHand) => {
+        const playerBet = AvailableBets.find(bet => bet.name == "Player Win");
+        if (playerHand.length == 3 && 
+           (playerHand[0].score + playerHand[1].score + playerHand[2].score) % 10 == 8 &&
+            playerBet?.validator(bankerHand, playerHand) == true) {
+                return true;
+            }
+            return false;
+    }
   }
+
+    
+
+
 ]

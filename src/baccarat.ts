@@ -16,4 +16,12 @@ export default class Baccarat {
   addHandStartListener(listener: (availableBets: AvailableBet[]) => void) {
     throw new Error("Method not implemented.");
   }
+
+  doesPlayerDrawThirdCard() {
+    // ?
+  }
+
+  doesBankerDrawThirdCard() {
+    // ?
+  }
 }
