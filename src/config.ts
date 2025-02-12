@@ -99,8 +99,7 @@ export const AvailableBets: AvailableBet[] = [
         return false;
     }
   },
-  {
-    
+  { 
     name: 'Dragon 7',
     description: 'Banker wins with a three card hand worth 7 points',
     payout: [40, 1],
@@ -117,9 +116,7 @@ export const AvailableBets: AvailableBet[] = [
                 return true;
             }
             return false;
-
-    }
-        
+    }      
   },
   {
     name: 'Player Pair',
@@ -157,8 +154,4 @@ export const AvailableBets: AvailableBet[] = [
             return false;
     }
   }
-
-    
-
-
-]
+];
