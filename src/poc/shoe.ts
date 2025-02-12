@@ -1,5 +1,5 @@
 import { Card } from "./types";
-import { Suits, Ranks, RankToScore } from "./config";
+import { Suits, Ranks, RankToScore } from "../config";
 
 export class Shoe {
     private contents: Card[] = [];
