@@ -1,31 +1,40 @@
 const roadLength = 40; 
 const rows = 6;
-const roadRow: string[] = Array(roadLength).fill(' '); 
-const road: string [][] = [roadRow, roadRow, roadRow, roadRow, roadRow, roadRow];
+const road: string [][] = Array(rows).fill(null).map(() => Array(roadLength).fill(' '));
+
 let currentRow: number = 0;
 let currentIndex: number= 0;
 
 function displayRoad() {
     console.clear();
-    for (let i = 0; i < rows; i += roadLength) {
-        console.log(road.slice(i, i + roadLength).join('\n'));
-        
-    }
-    // console.log(`Rupees: ${purse}  Player: ${playerBet}  Banker: ${bankerBet}  Tie: ${tieBet}`);
+    road.forEach(row => console.log(row.join(' ')));       
 }
+    // console.log(`Rupees: ${purse}  Player: ${playerBet}  Banker: ${bankerBet}  Tie: ${tieBet}`);
+
 
 function updateRoad(outcome: string) {
-    if (currentIndex < roadLength && road[currentRow][currentIndex] == outcome) {
-        currentRow++;
-        road[currentRow][currentIndex] = outcome;
-       
-        displayRoad();
+   
+    if (currentRow > 0 && road[currentRow - 1][currentIndex] === outcome) {
+        if (currentRow < rows - 1) {
+            road[currentRow][currentIndex] = outcome;
+            currentRow++
+        } else {
+            console.log('Max height');
+        }
+        
     } else {
-        console.log("Road is full!"); // TODO make a reset function that will be called here
+        currentIndex++;
+        if (currentIndex >= roadLength) {
+            console.log("Road is full!");
+            return;
+        }
+        currentRow = 0;
+        road[currentRow][currentIndex] = outcome;
     }
+    displayRoad();
 }
 
 displayRoad();
 updateRoad('P');
 updateRoad('P');
-updateRoad('T');
+updateRoad('P');
