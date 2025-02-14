@@ -99,25 +99,6 @@ export const AvailableBets: AvailableBet[] = [
         return false;
     }
   },
-  { 
-    name: 'Dragon 7',
-    description: 'Banker wins with a three card hand worth 7 points',
-    payout: [40, 1],
-    validator: (bankerHand: Card[], playerHand: Card[]): boolean => {
-        // AvailableBets.find searches the array of objects looking for one with the name "banker Win".  
-        // That object is put into bankerBet
-        const bankerBet = AvailableBets.find(bet => bet.name == 'Banker Win')
-        // banker hand must have exactly three cards
-        if (bankerHand.length === 3 && 
-            // adding all three card scores and dividing by 10, with the remainder being the score
-           (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10 === 7 &&
-           // 
-            bankerBet?.validator(bankerHand, playerHand) == true) {
-                return true;
-            }
-            return false;
-    }      
-  },
   {
     name: 'Player Pair',
     description: 'Players first two cards are the same rank',
@@ -139,6 +120,25 @@ export const AvailableBets: AvailableBet[] = [
         }
         return false;
     }
+  },
+  { 
+    name: 'Dragon 7',
+    description: 'Banker wins with a three card hand worth 7 points',
+    payout: [40, 1],
+    validator: (bankerHand: Card[], playerHand: Card[]): boolean => {
+        // AvailableBets.find searches the array of objects looking for one with the name "banker Win".  
+        // That object is put into bankerBet
+        const bankerBet = AvailableBets.find(bet => bet.name == 'Banker Win')
+        // banker hand must have exactly three cards
+        if (bankerHand.length === 3 && 
+            // adding all three card scores and dividing by 10, with the remainder being the score
+           (bankerHand[0].score + bankerHand[1].score + bankerHand[2].score) % 10 === 7 &&
+           // 
+            bankerBet?.validator(bankerHand, playerHand) == true) {
+                return true;
+            }
+            return false;
+    }      
   },
   {
     name: 'Panda 8',

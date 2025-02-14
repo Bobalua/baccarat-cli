@@ -3,11 +3,18 @@ import Card from "./card";
 import { AvailableBets } from "./config";
 
 export default class Bookie {
-  public purse: number = 0;
+  public purse: number = 100;
 
   private currentBets: Map<AvailableBet, number> = new Map();
 
-  PlaceBet(bet: AvailableBet, amount: number) {
+  placeBet(bet: AvailableBet, amount: number) {
+    if (amount == 0) {
+      return;
+    }
+    if (amount > this.purse) {
+      return;
+    }
+
     this.currentBets.set(bet, (this.currentBets.get(bet) || 0) + amount);
     this.purse -= amount;
   }
@@ -16,9 +23,9 @@ export default class Bookie {
     return this.currentBets.get(bet) || 0;
   }  
 
-  private resolveBets(bankerHand: Card[], playerHand: Card[]) {
+  resolveBets(bankerHand: Card[], playerHand: Card[]) {
     this.currentBets.forEach((betAmount, betType) => {
-      const bet = AvailableBets.find (bet => bet.name === betType.name);
+      const bet = AvailableBets.find(bet => bet.name === betType.name);
 
       if (bet && bet.validator(bankerHand, playerHand)) {
         const [multiplier, base] = bet.payout;
@@ -29,7 +36,9 @@ export default class Bookie {
     })
   }
     
-  
+  bankruptCheck() {
+    return this.purse >= 0;
+  }
 
   private clearBets() {
     this.currentBets.clear();
