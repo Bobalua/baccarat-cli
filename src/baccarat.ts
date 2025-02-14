@@ -23,11 +23,34 @@ export default class Baccarat extends EventEmitter {
     // throw new Error("Method not implemented.");
   }
 
-  doesPlayerDrawThirdCard() {
-    // ?
-  }
+  // if player will draw a third card, doesPlayerDrawThirdCard returns true
+  doesPlayerDrawThirdCard(): boolean {
+    if (this.playerHand[0].score + this.playerHand[1].score % 10 > 5) {
+      return false;
+    }else {
+    return true;
+  } 
+  }; 
 
-  doesBankerDrawThirdCard() {
-    // ?
+  doesBankerDrawThirdCard(): boolean {
+    if (this.playerHand[0].score + this.playerHand[1].score % 10 == 8 || 9) {
+      return false;
+    } else if (this.bankerHand[0].score + this.bankerHand[1].score % 10 == 8 || 9) {
+      return false;
+    } else if (this.bankerHand[0].score + this.bankerHand[1].score % 10 < 3) {
+      return true;
+    } else if (this.bankerHand[0].score + this.bankerHand[1].score % 10 == 3) {
+      if (this.playerHand[2].score == 8) {
+        return false;
+      } else {
+        return true;
+      }
+    } else if (this.bankerHand[0].score + this.bankerHand[1].score % 10 == 4) {
+      if (this.playerHand[2].score != 8 || this.playerHand[2].score != 9) {
+        // TODO finish the draw conditional chain.  playerhand != 9 is throwing a fit.  Need to fix. 
+        // Finish banker score is 4 logic and move on to 5....
+
+      }
+    }
   }
 }

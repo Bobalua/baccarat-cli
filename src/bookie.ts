@@ -8,7 +8,8 @@ export default class Bookie {
   private currentBets: Map<AvailableBet, number> = new Map();
 
   PlaceBet(bet: AvailableBet, amount: number) {
-    this.currentBets.set(bet, (this.currentBets.get(bet) || 0))
+    this.currentBets.set(bet, (this.currentBets.get(bet) || 0) + amount);
+    this.purse -= amount;
   }
 
   getBet(bet: AvailableBet): number {
